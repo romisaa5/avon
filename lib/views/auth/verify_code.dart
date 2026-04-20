@@ -1,12 +1,15 @@
 import 'package:cosmetics/core/common/widgets/app_images.dart';
 import 'package:cosmetics/core/common/widgets/app_button.dart';
+import 'package:cosmetics/core/helpers/app_navigator.dart';
 import 'package:cosmetics/core/helpers/extensions.dart';
 import 'package:cosmetics/core/network/dio_helper.dart';
 import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/views/auth/register.dart';
 import 'package:cosmetics/views/auth/widgets/otp_field.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class VerifyCodeView extends StatefulWidget {
   const VerifyCodeView({
@@ -114,18 +117,51 @@ class _VerifyCodeViewState extends State<VerifyCodeView> {
                         Text(
                           'Verify Code',
                           style: AppTextStyles.font24Bold.copyWith(
-                            color: LightAppColors.grey900,
+                            color: LightAppColors.primary800,
                           ),
                         ),
                         40.h.ph,
-                        Text(
-                          'We just sent a 4-digit verification code to ${widget.contact}. Enter the code in the box below to continue.',
-                          style: AppTextStyles.font14Regular.copyWith(
-                            color: LightAppColors.grey500,
-                          ),
+                        RichText(
                           textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: AppTextStyles.font14SemiBold.copyWith(
+                              color: LightAppColors.grey500,
+                            ),
+                            children: [
+                              const TextSpan(
+                                text:
+                                    'We just sent a 4-digit verification code to ',
+                              ),
+                              TextSpan(
+                                text: widget.contact,
+                                style: AppTextStyles.font14Bold.copyWith(
+                                  color: LightAppColors.primary800,
+                                ),
+                              ),
+                              const TextSpan(
+                                text:
+                                    '. Enter the code in the box below to continue.',
+                              ),
+                            ],
+                          ),
                         ),
                         40.h.ph,
+                        CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            AppNavigator.push(RegisterView());
+                          },
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Edit the number',
+                              style: AppTextStyles.font14Regular.copyWith(
+                                color: LightAppColors.secondary800,
+                              ),
+                            ),
+                          ),
+                        ),
+                        20.h.ph,
                         OtpField(
                           onCompleted: (code) {
                             setState(() {

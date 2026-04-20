@@ -32,12 +32,22 @@ class _LoginViewState extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
   String selectedCountryCode = "+20";
   bool isLoading = false;
+  final phoneFocus = FocusNode();
+  final passwordFocus = FocusNode();
 
   @override
   void dispose() {
     passwordContoller.dispose();
     phoneController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(phoneFocus);
+    });
   }
 
   Future<void> login() async {
@@ -89,11 +99,16 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(12.h),
+              padding: EdgeInsets.only(
+                left: 12.w,
+                right: 12.w,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
@@ -119,6 +134,10 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         40.h.ph,
                         AppPhoneInput(
+                          focusNode: phoneFocus,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(passwordFocus);
+                          },
                           phoneController: phoneController,
                           validator: AppValidators.phone,
                           onCountryChanged: (code) {
@@ -127,7 +146,11 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         8.h.ph,
                         AppInput(
-                          labelText: 'Create your password',
+                          focusNode: passwordFocus,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).unfocus();
+                          },
+                          labelText: 'Your Password',
                           controller: passwordContoller,
                           isObscureText: true,
                           validator: AppValidators.password,
@@ -155,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
                         Spacer(),
                         AuthSwitcherText(
                           normalText: "Don't have an account? ",
-                          actionText: " Sign Up",
+                          actionText: " Register",
                           onTap: () {
                             AppNavigator.push(RegisterView());
                           },

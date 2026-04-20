@@ -24,14 +24,21 @@ class Offers extends StatelessWidget {
       items: offers.map((offer) {
         return Container(
           padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              AppImages(
-                imagePath: '/poster.jpg',
-                height: 320.h,
-                width: double.infinity,
+              Opacity(
+                opacity: 0.6,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.r),
+                  child: AppImages(
+                    imagePath: offer.imageUrl,
+                    height: 320.h,
+                    width: double.infinity,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(20.h),
@@ -70,7 +77,7 @@ class Offers extends StatelessWidget {
                           height: 50.h,
                         ),
                         Text(
-                          "${offer.descriptionTitle1}\n  ${offer.descriptionTitle2}",
+                          "${offer.descriptionTitle1En}\n${offer.descriptionTitle2En}",
                           style: AppTextStyles.font16Bold.copyWith(
                             color: Color(0xff434C6D),
                           ),

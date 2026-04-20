@@ -1,6 +1,7 @@
 import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppInput extends StatefulWidget {
@@ -24,9 +25,13 @@ class AppInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextAlign? textAlign;
   final bool isBorder;
+  final void Function(String)? onFieldSubmitted;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool autoFocus;
 
   const AppInput({
     super.key,
+    this.autoFocus = true,
     this.contentPadding,
     this.focusedBorder,
     this.enabledBorder,
@@ -47,6 +52,8 @@ class AppInput extends StatefulWidget {
     this.keyboardType,
     this.textAlign,
     this.isBorder = true,
+    this.onFieldSubmitted,
+    this.inputFormatters,
   });
 
   @override
@@ -86,12 +93,16 @@ class _AppInputState extends State<AppInput> {
           );
 
     return FormField<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.validator,
       builder: (FormFieldState<String> state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              inputFormatters: widget.inputFormatters,
+              onFieldSubmitted: widget.onFieldSubmitted,
+              autofocus: widget.autoFocus,
               keyboardType: widget.keyboardType,
               textAlign: widget.textAlign ?? TextAlign.start,
               maxLines: widget.maxLines ?? 1,

@@ -34,6 +34,12 @@ class _RegisterViewState extends State<RegisterView> {
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
   String selectedCountryCode = "+20";
+  bool isFormValid = false;
+  final nameFocus = FocusNode();
+  final emailFocus = FocusNode();
+  final phoneFocus = FocusNode();
+  final passwordFocus = FocusNode();
+  final confirmFocus = FocusNode();
 
   @override
   void dispose() {
@@ -43,6 +49,28 @@ class _RegisterViewState extends State<RegisterView> {
     passwordContoller.dispose();
     confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void validateForm() {
+    final isValid =
+        nameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        passwordContoller.text.isNotEmpty &&
+        confirmPasswordController.text.isNotEmpty;
+
+    setState(() {
+      isFormValid = isValid;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(nameFocus);
+    });
   }
 
   Future<void> register() async {
@@ -119,11 +147,16 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(12.h),
+              padding: EdgeInsets.only(
+                left: 12.w,
+                right: 12.w,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
@@ -147,33 +180,55 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         70.h.ph,
                         AppInput(
+                          focusNode: nameFocus,
+                          onChanged: (_) => validateForm(),
                           labelText: 'Your Name',
                           validator: AppValidators.name,
                           controller: nameController,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(emailFocus);
+                          },
                         ),
                         38.h.ph,
                         AppInput(
+                          focusNode: emailFocus,
+                          onChanged: (_) => validateForm(),
                           labelText: 'Email',
                           validator: AppValidators.email,
                           controller: emailController,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(phoneFocus);
+                          },
                         ),
                         38.h.ph,
                         AppPhoneInput(
+                          focusNode: phoneFocus,
+                          onChanged: (_) => validateForm(),
                           phoneController: phoneController,
                           validator: AppValidators.phone,
                           onCountryChanged: (code) {
                             selectedCountryCode = code;
                           },
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(passwordFocus);
+                          },
                         ),
                         16.h.ph,
                         AppInput(
+                          focusNode: passwordFocus,
+                          onChanged: (_) => validateForm(),
                           labelText: 'Create your password',
                           controller: passwordContoller,
                           isObscureText: true,
                           validator: AppValidators.password,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).requestFocus(confirmFocus);
+                          },
                         ),
                         16.h.ph,
                         AppInput(
+                          focusNode: confirmFocus,
+                          onChanged: (_) => validateForm(),
                           labelText: 'Confirm password',
                           controller: confirmPasswordController,
                           isObscureText: true,
@@ -181,20 +236,31 @@ class _RegisterViewState extends State<RegisterView> {
                             value,
                             passwordContoller.text,
                           ),
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
                         16.h.ph,
                         AppButton(
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              register();
-                            }
-                          },
+                          onTap: isFormValid
+                              ? () {
+                                  if (formKey.currentState!.validate()) {
+                                    register();
+                                  }
+                                }
+                              : null,
+                          color: isFormValid
+                              ? LightAppColors.primary800
+                              : LightAppColors.grey400,
+                          borderColor: isFormValid
+                              ? LightAppColors.primary800
+                              : LightAppColors.grey400,
                           text: isLoading ? 'Loading....' : 'Next',
                           width: 270.w,
                         ),
                         Spacer(),
                         AuthSwitcherText(
-                          normalText: "Already have an account? ",
+                          normalText: "Have an account? ",
                           actionText: "Login",
                           onTap: () {
                             AppNavigator.push(LoginView());

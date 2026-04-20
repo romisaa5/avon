@@ -83,9 +83,12 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back_ios),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.arrow_back_ios),
+                    ),
                   ),
                   AuthHeaderSection(
                     title: 'Forget Password',

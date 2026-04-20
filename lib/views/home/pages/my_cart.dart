@@ -70,7 +70,18 @@ class _MyCartPageState extends State<MyCartPage> {
             ],
           ),
           24.h.ph,
-
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              cart == null
+                  ? 'You have 0 products in your cart'
+                  : 'You have ${cart!.items.length} products in your cart',
+              style: AppTextStyles.font12Regular.copyWith(
+                color: LightAppColors.primary800.withValues(alpha: .55),
+              ),
+            ),
+          ),
+          34.h.ph,
           Expanded(
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -200,10 +211,9 @@ class _MyCartProductCardState extends State<MyCartProductCard> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
                   child: AppImages(
-                    imagePath:
-                        'https://cosmatics.growfet.com/${widget.model.imageUrl}',
-                    height: 70.h,
-                    width: 70.w,
+                    imagePath: widget.model.imageUrl,
+                    height: 102.h,
+                    width: 102.w,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -234,7 +244,7 @@ class _MyCartProductCardState extends State<MyCartProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.model.productName,
+                    widget.model.productNameEn,
                     style: AppTextStyles.font16SemiBold.copyWith(
                       color: LightAppColors.primary800,
                     ),
@@ -243,7 +253,6 @@ class _MyCartProductCardState extends State<MyCartProductCard> {
                   ),
 
                   8.h.ph,
-
                   Text(
                     "${widget.model.price.toStringAsFixed(0)} EGP",
                     style: AppTextStyles.font14SemiBold.copyWith(
@@ -323,14 +332,16 @@ class CartModel {
 
 class CartItemModel {
   final int productId;
-  final String productName;
+  final String productNameEn;
+  final String productNameAr;
   final int quantity;
   final double price;
   final String imageUrl;
 
   CartItemModel({
     required this.productId,
-    required this.productName,
+    required this.productNameEn,
+    required this.productNameAr,
     required this.quantity,
     required this.price,
     required this.imageUrl,
@@ -338,11 +349,12 @@ class CartItemModel {
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
     return CartItemModel(
-      productId: json['productId'],
-      productName: json['productName'],
+      productId: json['product_id'],
+      productNameEn: json['product_name_en'],
+      productNameAr: json['product_name_ar'],
       quantity: json['quantity'],
       price: (json['price'] as num).toDouble(),
-      imageUrl: json['imageUrl'],
+      imageUrl: json['image_url'],
     );
   }
 }

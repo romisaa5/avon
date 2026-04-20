@@ -12,6 +12,8 @@ class AppPhoneInput extends StatefulWidget {
   final Function(String completePhone)? onChanged;
   final String? Function(String?)? validator;
   final Function(String countryCode)? onCountryChanged;
+  final FocusNode? focusNode;
+  final void Function(String)? onFieldSubmitted;
 
   const AppPhoneInput({
     super.key,
@@ -19,6 +21,8 @@ class AppPhoneInput extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.onCountryChanged,
+    this.focusNode,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -68,7 +72,22 @@ class _AppPhoneInputState extends State<AppPhoneInput> {
               return DropdownButton2<String>(
                 isExpanded: true,
                 valueListenable: countryNotifier,
-
+                selectedItemBuilder: (context) {
+                  return countries.map((c) {
+                    return SizedBox(
+                      height: 50.h,
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          c.code,
+                          style: AppTextStyles.font14Regular.copyWith(
+                            color: LightAppColors.grey600,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
                 dropdownStyleData: DropdownStyleData(
                   maxHeight: 300.h,
                   width: 250.w,
@@ -92,7 +111,7 @@ class _AppPhoneInputState extends State<AppPhoneInput> {
                           child: Row(
                             children: [
                               Text(
-                                c.name,
+                                c.nameEn,
                                 style: AppTextStyles.font14Regular.copyWith(
                                   color: LightAppColors.grey600,
                                 ),
@@ -125,6 +144,8 @@ class _AppPhoneInputState extends State<AppPhoneInput> {
         10.w.pw,
         Expanded(
           child: AppInput(
+            focusNode: widget.focusNode,
+            onFieldSubmitted: widget.onFieldSubmitted,
             keyboardType: TextInputType.number,
             onChanged: (_) => _updateFullNumber(),
             labelText: 'Phone Number',

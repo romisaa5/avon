@@ -5,6 +5,7 @@ import 'package:cosmetics/core/network/dio_helper.dart';
 import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dio/dio.dart';
 
@@ -38,8 +39,16 @@ class _OtpFieldState extends State<OtpField> {
   @override
   void initState() {
     super.initState();
+
     controllers = List.generate(widget.length, (_) => TextEditingController());
     focusNodes = List.generate(widget.length, (_) => FocusNode());
+
+    for (int i = 0; i < controllers.length; i++) {
+      controllers[i].addListener(() {
+        setState(() {});
+      });
+    }
+
     _startTimer();
   }
 
@@ -105,15 +114,22 @@ class _OtpFieldState extends State<OtpField> {
   }
 
   void _onChanged(int index, String value) {
-    if (value.length == 1 && index < widget.length - 1) {
-      focusNodes[index + 1].requestFocus();
-    }
-    if (value.isEmpty && index > 0) {
-      focusNodes[index - 1].requestFocus();
+    if (value.isNotEmpty) {
+      if (index < widget.length - 1) {
+        focusNodes[index + 1].requestFocus();
+      }
+    } else {
+      if (index > 0) {
+        focusNodes[index - 1].requestFocus();
+        controllers[index - 1].selection = TextSelection.fromPosition(
+          TextPosition(offset: controllers[index - 1].text.length),
+        );
+      }
     }
 
     String code = controllers.map((e) => e.text).join();
-    if (code.length == widget.length) {
+
+    if (code.length == widget.length && !code.contains("")) {
       widget.onCompleted(code);
     }
   }
@@ -133,6 +149,10 @@ class _OtpFieldState extends State<OtpField> {
               height: 65.w,
               margin: EdgeInsets.symmetric(horizontal: 5.w),
               child: AppInput(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(1),
+                ],
                 controller: controllers[index],
                 focusNode: focusNodes[index],
                 keyboardType: TextInputType.number,

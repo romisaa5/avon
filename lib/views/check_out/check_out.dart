@@ -13,44 +13,60 @@ class CheckOutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          color: Color(0xff29D3DA).withValues(alpha: .11),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(context),
-              10.h.ph,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSectionTitle('Delivery to'),
-                    10.h.ph,
-                    SelectionGoogleMapsCard(
-                      icon: Icons.location_on_outlined,
-                      title: 'Home',
-                      subtitle: 'Mansoura, 14 Forsaid St',
-                      showDropdown: true,
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
+            child: Container(
+              color: Color(0xff29D3DA).withValues(alpha: .11),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(context),
+                  10.h.ph,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 27.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSectionTitle('Delivery to'),
+                        10.h.ph,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: SelectionGoogleMapsCard(
+                            icon: Icons.location_on_outlined,
+                            title: 'Home',
+                            subtitle: 'Mansoura, 14 Forsaid St',
+                            showDropdown: true,
+                          ),
+                        ),
+                        20.h.ph,
+                        _buildSectionTitle('Payment Method'),
+                        10.h.ph,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: Column(
+                            children: [
+                              _buildPaymentCard(),
+                              10.h.ph,
+                              _buildVoucherInput(),
+                            ],
+                          ),
+                        ),
+                        20.h.ph,
+                        _buildReviewPaymentLabel(),
+                        20.h.ph,
+                        _buildPaymentSummary(),
+                        35.h.ph,
+                        _buildOrderButton(),
+                        10.h.ph,
+                      ],
                     ),
-                    20.h.ph,
-                    _buildSectionTitle('Payment Method'),
-                    10.h.ph,
-                    _buildPaymentCard(),
-                    10.h.ph,
-                    _buildVoucherInput(),
-                    20.h.ph,
-                    _buildReviewPaymentLabel(),
-                    20.h.ph,
-                    _buildPaymentSummary(),
-                    35.h.ph,
-                    _buildOrderButton(),
-                    10.h.ph,
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -62,19 +78,20 @@ class CheckOutView extends StatelessWidget {
       color: Color(0xffD9D9D9),
       height: 100.h,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.arrow_back_ios_new, size: 24.sp),
           ),
-          Spacer(),
+
           Text(
             'Checkout',
             style: AppTextStyles.font24Bold.copyWith(
               color: LightAppColors.primary800,
             ),
           ),
-          Spacer(),
+          30.w.pw,
         ],
       ),
     );
@@ -223,11 +240,15 @@ class CheckOutView extends StatelessWidget {
   }
 
   Widget _buildOrderButton() {
-    return AppButton(
-      icon: '/my_cart.svg',
-      text: 'ORDER',
-      isIcon: true,
-      iconColor: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+    return Center(
+      child: AppButton(
+        hight: 65.h,
+        width: 268.w,
+        icon: '/my_cart.svg',
+        text: 'ORDER',
+        isIcon: true,
+        iconColor: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+      ),
     );
   }
 }

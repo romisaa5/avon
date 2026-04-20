@@ -65,7 +65,16 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: TextButton(onPressed: () {}, child: const Text("Skip")),
+              child: TextButton(
+                onPressed: () async {
+                  await SharedPrefHelper.setData(
+                    key: SharedPrefKeys.kIsOnBoardingSeen,
+                    value: true,
+                  );
+                  AppNavigator.pushAndRemoveUntil(LoginView());
+                },
+                child: const Text("Skip"),
+              ),
             ),
             Expanded(
               child: PageView.builder(

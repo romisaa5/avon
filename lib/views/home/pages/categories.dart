@@ -58,6 +58,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           ),
           24.h.ph,
           AppInput(
+            autoFocus: false,
             labelText: 'Search',
             suffixIcon: SizedBox(
               height: 24.h,
@@ -74,9 +75,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     itemBuilder: (context, index) {
                       final category = categories[index];
                       return CategoryCard(
-                        title: category.title,
-                        imageUrl:
-                            'https://cosmatics.growfet.com/${category.imageUrl}',
+                        title: category.titleEn,
+                        imageUrl: category.imageUrl,
                       );
                     },
                   ),
@@ -103,8 +103,8 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.r),
               child: AppImages(
                 imagePath: imageUrl,
-                height: 60.h,
-                width: 60.w,
+                height: 69.h,
+                width: 64.w,
                 fit: BoxFit.cover,
               ),
             ),
@@ -122,12 +122,12 @@ class CategoryCard extends StatelessWidget {
             AppImages(imagePath: '/forward.svg'),
           ],
         ),
-        12.h.ph,
+        20.h.ph,
         Divider(
           thickness: 1,
           color: LightAppColors.grey500.withValues(alpha: .5),
         ),
-        12.h.ph,
+        20.h.ph,
       ],
     );
   }
@@ -135,20 +135,32 @@ class CategoryCard extends StatelessWidget {
 
 class _Category {
   final int id;
-  final String title;
+  final String titleEn;
+  final String titleAr;
   final String imageUrl;
 
-  _Category({required this.id, required this.title, required this.imageUrl});
+  _Category({
+    required this.id,
+    required this.titleEn,
+    required this.titleAr,
+    required this.imageUrl,
+  });
 
   factory _Category.fromJson(Map<String, dynamic> json) {
     return _Category(
       id: json['id'],
-      title: json['title'],
-      imageUrl: json['imageUrl'],
+      titleEn: json['title_en'],
+      titleAr: json['title_ar'],
+      imageUrl: json['image_url'],
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"id": id, "title": title, "imageUrl": imageUrl};
+    return {
+      "id": id,
+      "title_en": titleEn,
+      "title_ar": titleAr,
+      "image_url": imageUrl,
+    };
   }
 }

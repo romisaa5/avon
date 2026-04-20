@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
     try {
       final response = await DioHelper.get("/api/Products");
       final List data = response.data;
+      if (!mounted) return;
       setState(() {
         topRatedProducts = data
             .map((e) => Product.fromJson(e))
@@ -94,6 +95,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             12.h.ph,
             AppInput(
+              autoFocus: false,
               labelText: 'Search',
               suffixIcon: SizedBox(
                 height: 24.h,
@@ -136,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                       addToCart(product.id);
                     },
                     imageUrl: product.imageUrl,
-                    title: product.name,
+                    title: product.nameEn,
                     price: "\$${product.price}",
                   );
                 },
@@ -150,32 +152,38 @@ class _HomePageState extends State<HomePage> {
 
 class Product {
   final int id;
-  final String name;
-  final String description;
+  final String nameEn;
+  final String nameAr;
+  final String descriptionEn;
+  final String descriptionAr;
   final double price;
   final int stock;
   final String imageUrl;
-  final int? categoryId;
+  final int categoryId;
 
   Product({
     required this.id,
-    required this.name,
-    required this.description,
+    required this.nameEn,
+    required this.nameAr,
+    required this.descriptionEn,
+    required this.descriptionAr,
     required this.price,
     required this.stock,
     required this.imageUrl,
-    this.categoryId,
+    required this.categoryId,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json["id"],
-      name: json["name"],
-      description: json["description"] ?? "",
+      nameEn: json["name_en"],
+      nameAr: json["name_ar"],
+      descriptionEn: json["description_en"] ?? "",
+      descriptionAr: json["description_ar"] ?? "",
       price: (json["price"] as num).toDouble(),
       stock: json["stock"],
-      imageUrl: json["imageUrl"],
-      categoryId: json["categoryId"],
+      imageUrl: json["image_url"],
+      categoryId: json["category_id"],
     );
   }
 }
@@ -184,38 +192,55 @@ class OfferModel {
   final int id;
   final String couponCode;
   final int discountPercent;
-  final String descriptionTitle1;
-  final String descriptionTitle2;
+
+  final String descriptionTitle1En;
+  final String descriptionTitle1Ar;
+
+  final String descriptionTitle2En;
+  final String descriptionTitle2Ar;
+
   final String imageUrl;
 
   OfferModel({
     required this.id,
     required this.couponCode,
     required this.discountPercent,
-    required this.descriptionTitle1,
-    required this.descriptionTitle2,
+    required this.descriptionTitle1En,
+    required this.descriptionTitle1Ar,
+    required this.descriptionTitle2En,
+    required this.descriptionTitle2Ar,
     required this.imageUrl,
   });
 
   factory OfferModel.fromJson(Map<String, dynamic> json) {
     return OfferModel(
       id: json['id'] ?? 0,
-      couponCode: json['couponCode'] ?? '',
-      discountPercent: json['discountPercent'] ?? 0,
-      descriptionTitle1: json['descriptionTitle1'] ?? '',
-      descriptionTitle2: json['descriptionTitle2'] ?? '',
-      imageUrl: json['imageUrl'] ?? '',
+      couponCode: json['coupon_code'] ?? '',
+      discountPercent: json['discount_percent'] ?? 0,
+
+      descriptionTitle1En: json['description_title1_en'] ?? '',
+      descriptionTitle1Ar: json['description_title1_ar'] ?? '',
+
+      descriptionTitle2En: json['description_title2_en'] ?? '',
+      descriptionTitle2Ar: json['description_title2_ar'] ?? '',
+
+      imageUrl: json['image_url'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'couponCode': couponCode,
-      'discountPercent': discountPercent,
-      'descriptionTitle1': descriptionTitle1,
-      'descriptionTitle2': descriptionTitle2,
-      'imageUrl': imageUrl,
+      'coupon_code': couponCode,
+      'discount_percent': discountPercent,
+
+      'description_title1_en': descriptionTitle1En,
+      'description_title1_ar': descriptionTitle1Ar,
+
+      'description_title2_en': descriptionTitle2En,
+      'description_title2_ar': descriptionTitle2Ar,
+
+      'image_url': imageUrl,
     };
   }
 }
