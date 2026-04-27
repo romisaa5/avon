@@ -4,7 +4,6 @@ import 'package:cosmetics/core/network/dio_helper.dart';
 import 'package:cosmetics/core/theme/app_colors/light_theme_data.dart';
 import 'package:cosmetics/views/splash.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
@@ -12,16 +11,6 @@ void main() async {
   await SharedPrefHelper.init();
   await DioHelper.init();
   await ScreenUtil.ensureScreenSize();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-  );
-
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
   runApp(MyApp());
 }
 
