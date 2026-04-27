@@ -5,7 +5,6 @@ import 'package:cosmetics/views/home/pages/my_cart.dart';
 import 'package:cosmetics/views/home/pages/categories.dart';
 import 'package:cosmetics/views/home/pages/home.dart';
 import 'package:cosmetics/views/home/pages/profile.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,11 +16,11 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
-  final _pages = [
-    const HomePage(),
-    const CategoriesPage(),
-    const MyCartPage(),
-    const ProfilePage(),
+  final _pages = const [
+    HomePage(),
+    CategoriesPage(),
+    MyCartPage(),
+    ProfilePage(),
   ];
 
   Widget buildSvg(String path, bool isSelected) {
@@ -40,8 +39,10 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
+
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(8.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.r),
           color: LightAppColors.grey300,
@@ -53,35 +54,42 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-        child: GNav(
-          gap: 8,
-          activeColor: LightAppColors.secondary900,
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-          duration: const Duration(milliseconds: 400),
-          onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          tabs: [
-            GButton(
-              icon: Icons.circle,
-              leading: buildSvg('/home.svg', _selectedIndex == 0),
-            ),
-            GButton(
-              icon: Icons.circle,
-              leading: buildSvg('/categories.svg', _selectedIndex == 1),
-            ),
-            GButton(
-              icon: Icons.circle,
-              leading: buildSvg('/my_cart.svg', _selectedIndex == 2),
-            ),
-            GButton(
-              icon: Icons.circle,
-              leading: buildSvg('/profile.svg', _selectedIndex == 3),
-            ),
-          ],
+
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24.r),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+
+            items: [
+              BottomNavigationBarItem(
+                icon: buildSvg('/home.svg', _selectedIndex == 0),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: buildSvg('/categories.svg', _selectedIndex == 1),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: buildSvg('/my_cart.svg', _selectedIndex == 2),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: buildSvg('/profile.svg', _selectedIndex == 3),
+                label: '',
+              ),
+            ],
+          ),
         ),
       ),
     );
