@@ -1,4 +1,4 @@
-import 'package:cosmetics/core/network/token_storage.dart';
+import 'package:cosmetics/core/logic/network/token_storage.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
 import 'package:dio/io.dart';

@@ -1,6 +1,6 @@
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/font_weight_helper.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/font_weight_helper.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 import '../app_texts/app_fonts.dart';
 
 ThemeData getLightTheme(BuildContext context) {

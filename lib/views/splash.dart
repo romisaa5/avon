@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:cosmetics/core/common/widgets/app_images.dart';
-import 'package:cosmetics/core/helpers/app_navigator.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/helpers/shared_pref_helper.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
-import 'package:cosmetics/core/utils/shared_pref_keys.dart';
+import 'package:cosmetics/core/ui/widgets/app_images.dart';
+import 'package:cosmetics/core/logic/helpers/app_navigator.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/logic/helpers/shared_pref_helper.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
+import 'package:cosmetics/core/logic/helpers/shared_pref_keys.dart';
 import 'package:cosmetics/views/auth/login.dart';
 import 'package:cosmetics/views/home/view.dart';
 import 'package:cosmetics/views/on_boarding.dart';

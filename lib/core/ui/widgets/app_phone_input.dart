@@ -1,10 +1,10 @@
-import 'package:cosmetics/core/common/widgets/app_input.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
+import 'package:cosmetics/core/ui/widgets/app_input.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
 import 'package:cosmetics/core/logic/models/country.dart';
 import 'package:cosmetics/core/logic/services/country_service.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class AppPhoneInput extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:cosmetics/core/helpers/app_navigator.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/logic/helpers/app_navigator.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 
 class SnackbarHelper {
   static void showSuccessSnackbar(String message, {VoidCallback? onDismissed}) {

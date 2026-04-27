@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:cosmetics/core/helpers/snackbar_helper.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/logic/helpers/snackbar_helper.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';

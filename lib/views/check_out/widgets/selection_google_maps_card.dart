@@ -1,6 +1,6 @@
-import 'package:cosmetics/core/helpers/app_navigator.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/logic/helpers/app_navigator.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 import 'package:cosmetics/views/check_out/pin_location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

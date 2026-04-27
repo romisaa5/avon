@@ -1,9 +1,9 @@
-import 'package:cosmetics/core/common/widgets/app_button.dart';
-import 'package:cosmetics/core/common/widgets/app_phone_input.dart';
-import 'package:cosmetics/core/helpers/app_navigator.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/network/dio_helper.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/ui/widgets/app_button.dart';
+import 'package:cosmetics/core/ui/widgets/app_phone_input.dart';
+import 'package:cosmetics/core/logic/helpers/app_navigator.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/logic/network/dio_helper.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 import 'package:cosmetics/views/auth/create_new_password.dart';
 import 'package:cosmetics/views/auth/verify_code.dart';
 import 'package:cosmetics/views/auth/widgets/auth_header_section.dart';

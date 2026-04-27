@@ -1,5 +1,5 @@
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

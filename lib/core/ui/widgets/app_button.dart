@@ -1,7 +1,7 @@
-import 'package:cosmetics/core/common/widgets/app_images.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/ui/widgets/app_images.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +13,6 @@ class AppButton extends StatelessWidget {
     this.onTap,
     this.width,
     this.textcolor,
-    this.isborder = true,
     this.isIcon = false,
     this.hight,
     this.style,
@@ -29,7 +28,6 @@ class AppButton extends StatelessWidget {
   final Color? color;
   final double? width;
   final void Function()? onTap;
-  final bool isborder;
   final bool isIcon;
   final double? hight;
   final TextStyle? style;
@@ -41,17 +39,17 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: isLoading ? null : onTap,
-      child: Container(
-        width: width ?? double.infinity,
-        height: hight ?? 65.h,
-        decoration: BoxDecoration(
-          border: isborder
-              ? Border.all(color: borderColor ?? LightAppColors.secondary800)
-              : null,
-          borderRadius: BorderRadius.circular(border ?? 60.r),
-          color: color ?? LightAppColors.secondary800,
+    return SizedBox(
+      width: width ?? 270.w,
+      height: hight ?? 65.h,
+      child: ElevatedButton(
+        onPressed: isLoading ? null : onTap,
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+          backgroundColor: color ?? LightAppColors.secondary800,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(border ?? 60.r),
+          ),
         ),
         child: isLoading
             ? Center(

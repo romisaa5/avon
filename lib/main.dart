@@ -1,7 +1,7 @@
-import 'package:cosmetics/core/helpers/app_navigator.dart';
-import 'package:cosmetics/core/helpers/shared_pref_helper.dart';
-import 'package:cosmetics/core/network/dio_helper.dart';
-import 'package:cosmetics/core/theme/app_colors/light_theme_data.dart';
+import 'package:cosmetics/core/logic/helpers/app_navigator.dart';
+import 'package:cosmetics/core/logic/helpers/shared_pref_helper.dart';
+import 'package:cosmetics/core/logic/network/dio_helper.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_theme_data.dart';
 import 'package:cosmetics/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

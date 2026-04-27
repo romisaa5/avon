@@ -1,10 +1,10 @@
-import 'package:cosmetics/core/common/widgets/app_images.dart';
-import 'package:cosmetics/core/common/widgets/app_input.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/network/dio_helper.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/core/ui/widgets/app_images.dart';
+import 'package:cosmetics/core/ui/widgets/app_input.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/logic/network/dio_helper.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
 import 'package:cosmetics/views/home/widgets/offers.dart';
 import 'package:cosmetics/views/home/widgets/top_rated_product_card.dart';
 

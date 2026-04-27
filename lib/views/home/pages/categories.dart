@@ -1,10 +1,10 @@
-import 'package:cosmetics/core/common/widgets/app_images.dart';
-import 'package:cosmetics/core/common/widgets/app_input.dart';
-import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
-import 'package:cosmetics/core/utils/common_imports.dart';
-import 'package:cosmetics/core/network/dio_helper.dart';
+import 'package:cosmetics/core/ui/widgets/app_images.dart';
+import 'package:cosmetics/core/ui/widgets/app_input.dart';
+import 'package:cosmetics/core/logic/helpers/extensions.dart';
+import 'package:cosmetics/core/ui/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/ui/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/logic/helpers/common_imports.dart';
+import 'package:cosmetics/core/logic/network/dio_helper.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});
@@ -56,7 +56,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
             ),
           ),
-          24.h.ph,
+          20.h.ph,
           AppInput(
             autoFocus: false,
             labelText: 'Search',
@@ -66,7 +66,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               child: Center(child: AppImages(imagePath: '/search.svg')),
             ),
           ),
-          30.h.ph,
+          20.h.ph,
           Expanded(
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())

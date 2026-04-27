@@ -1,4 +1,4 @@
-import 'package:cosmetics/core/helpers/app_logger.dart';
+import 'package:cosmetics/core/logic/helpers/app_logger.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

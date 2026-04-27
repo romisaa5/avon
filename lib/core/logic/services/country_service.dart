@@ -1,5 +1,5 @@
 import 'package:cosmetics/core/logic/models/country.dart';
-import 'package:cosmetics/core/network/dio_helper.dart';
+import 'package:cosmetics/core/logic/network/dio_helper.dart';
 
 class CountryService {
   static final CountryService _instance = CountryService._internal();
