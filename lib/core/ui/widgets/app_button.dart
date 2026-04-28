@@ -14,7 +14,6 @@ class AppButton extends StatelessWidget {
     this.width,
     this.isIcon = false,
     this.hight,
-
     this.icon,
     this.iconColor,
     this.isLoading = false,

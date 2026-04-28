@@ -8,13 +8,11 @@ class AppInput extends StatefulWidget {
   final String? labelText;
   final bool? isObscureText;
   final Widget? suffixIcon;
-  final Color? backgroundColor;
   final Widget? prefixIcon;
   final FocusNode? focusNode;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  final int? maxLines;
   final TextInputType? keyboardType;
   final bool isBorder;
   final void Function(String)? onFieldSubmitted;
@@ -27,13 +25,11 @@ class AppInput extends StatefulWidget {
     this.labelText,
     this.isObscureText,
     this.suffixIcon,
-    this.backgroundColor,
     this.controller,
     this.validator,
     this.prefixIcon,
     this.focusNode,
     this.onChanged,
-    this.maxLines,
     this.keyboardType,
     this.isBorder = true,
     this.onFieldSubmitted,
@@ -80,7 +76,7 @@ class _AppInputState extends State<AppInput> {
               autofocus: widget.autoFocus,
               keyboardType: widget.keyboardType,
               textAlign: TextAlign.start,
-              maxLines: widget.maxLines ?? 1,
+              maxLines: 1,
               controller: widget.controller,
               onChanged: (value) {
                 state.didChange(value);
@@ -135,7 +131,7 @@ class _AppInputState extends State<AppInput> {
                       )
                     : widget.suffixIcon,
                 prefixIcon: widget.prefixIcon,
-                fillColor: widget.backgroundColor ?? LightAppColors.background,
+                fillColor: LightAppColors.background,
                 filled: true,
               ),
               style: AppTextStyles.font16Regular.copyWith(
