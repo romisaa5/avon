@@ -156,7 +156,6 @@ class _OtpFieldState extends State<OtpField> {
                 controller: controllers[index],
                 focusNode: focusNodes[index],
                 keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
                 onChanged: (value) => _onChanged(index, value),
               ),
             );

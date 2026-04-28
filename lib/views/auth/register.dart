@@ -252,9 +252,7 @@ class _RegisterViewState extends State<RegisterView> {
                           color: isFormValid
                               ? LightAppColors.primary800
                               : LightAppColors.grey400,
-                          borderColor: isFormValid
-                              ? LightAppColors.primary800
-                              : LightAppColors.grey400,
+
                           text: isLoading ? 'Loading....' : 'Next',
                           width: 270.w,
                         ),

@@ -12,29 +12,22 @@ class AppButton extends StatelessWidget {
     this.color,
     this.onTap,
     this.width,
-    this.textcolor,
     this.isIcon = false,
     this.hight,
-    this.style,
-    this.border,
+
     this.icon,
     this.iconColor,
-    this.borderColor,
     this.isLoading = false,
   });
 
   final String text;
-  final Color? textcolor;
   final Color? color;
   final double? width;
   final void Function()? onTap;
   final bool isIcon;
   final double? hight;
-  final TextStyle? style;
-  final double? border;
   final String? icon;
   final ColorFilter? iconColor;
-  final Color? borderColor;
   final bool isLoading;
 
   @override
@@ -48,7 +41,7 @@ class AppButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
           backgroundColor: color ?? LightAppColors.secondary800,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(border ?? 60.r),
+            borderRadius: BorderRadius.circular(60.r),
           ),
         ),
         child: isLoading
@@ -57,7 +50,7 @@ class AppButton extends StatelessWidget {
                   height: 24.h,
                   width: 24.h,
                   child: CircularProgressIndicator(
-                    color: textcolor ?? Colors.white,
+                    color: Colors.white,
                     strokeWidth: 2,
                   ),
                 ),
@@ -72,12 +65,10 @@ class AppButton extends StatelessWidget {
                   ],
                   Text(
                     text,
-                    style:
-                        style ??
-                        AppTextStyles.font14SemiBold.copyWith(
-                          color: textcolor ?? Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AppTextStyles.font14SemiBold.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],

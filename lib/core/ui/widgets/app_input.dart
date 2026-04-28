@@ -5,11 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppInput extends StatefulWidget {
-  final EdgeInsetsGeometry? contentPadding;
-  final InputBorder? focusedBorder;
-  final InputBorder? enabledBorder;
-  final TextStyle? inputTextStyle;
-  final TextStyle? hintStyle;
   final String? labelText;
   final bool? isObscureText;
   final Widget? suffixIcon;
@@ -19,11 +14,8 @@ class AppInput extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  final InputBorder? errorBorder;
   final int? maxLines;
-  final bool isUnderline;
   final TextInputType? keyboardType;
-  final TextAlign? textAlign;
   final bool isBorder;
   final void Function(String)? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
@@ -32,11 +24,6 @@ class AppInput extends StatefulWidget {
   const AppInput({
     super.key,
     this.autoFocus = true,
-    this.contentPadding,
-    this.focusedBorder,
-    this.enabledBorder,
-    this.inputTextStyle,
-    this.hintStyle,
     this.labelText,
     this.isObscureText,
     this.suffixIcon,
@@ -46,11 +33,8 @@ class AppInput extends StatefulWidget {
     this.prefixIcon,
     this.focusNode,
     this.onChanged,
-    this.errorBorder,
     this.maxLines,
-    this.isUnderline = false,
     this.keyboardType,
-    this.textAlign,
     this.isBorder = true,
     this.onFieldSubmitted,
     this.inputFormatters,
@@ -73,24 +57,15 @@ class _AppInputState extends State<AppInput> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    InputBorder border = widget.isUnderline
-        ? UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isBorder
-                  ? LightAppColors.grey600.withValues(alpha: .4)
-                  : Colors.transparent,
-              width: 1.w,
-            ),
-          )
-        : OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            borderSide: BorderSide(
-              color: widget.isBorder
-                  ? LightAppColors.grey600.withValues(alpha: .4)
-                  : Colors.transparent,
-              width: 1.w,
-            ),
-          );
+    InputBorder border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12.r),
+      borderSide: BorderSide(
+        color: widget.isBorder
+            ? LightAppColors.grey600.withValues(alpha: .4)
+            : Colors.transparent,
+        width: 1.w,
+      ),
+    );
 
     return FormField<String>(
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -104,7 +79,7 @@ class _AppInputState extends State<AppInput> {
               onFieldSubmitted: widget.onFieldSubmitted,
               autofocus: widget.autoFocus,
               keyboardType: widget.keyboardType,
-              textAlign: widget.textAlign ?? TextAlign.start,
+              textAlign: TextAlign.start,
               maxLines: widget.maxLines ?? 1,
               controller: widget.controller,
               onChanged: (value) {
@@ -116,43 +91,36 @@ class _AppInputState extends State<AppInput> {
               cursorColor: LightAppColors.primary800,
               decoration: InputDecoration(
                 isDense: true,
-                contentPadding:
-                    widget.contentPadding ??
-                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-                focusedBorder:
-                    widget.focusedBorder ??
-                    border.copyWith(
-                      borderSide: BorderSide(
-                        color: widget.isBorder
-                            ? LightAppColors.secondary800
-                            : Colors.transparent,
-                        width: 1.5.w,
-                      ),
-                    ),
-                enabledBorder: widget.enabledBorder ?? border,
-                errorBorder:
-                    widget.errorBorder ??
-                    border.copyWith(
-                      borderSide: BorderSide(
-                        color: colorScheme.error,
-                        width: 1.2.w,
-                      ),
-                    ),
-                focusedErrorBorder:
-                    widget.errorBorder ??
-                    border.copyWith(
-                      borderSide: BorderSide(
-                        color: colorScheme.error,
-                        width: 1.2.w,
-                      ),
-                    ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 12.w,
+                  vertical: 16.h,
+                ),
+                focusedBorder: border.copyWith(
+                  borderSide: BorderSide(
+                    color: widget.isBorder
+                        ? LightAppColors.secondary800
+                        : Colors.transparent,
+                    width: 1.5.w,
+                  ),
+                ),
+                enabledBorder: border,
+                errorBorder: border.copyWith(
+                  borderSide: BorderSide(
+                    color: colorScheme.error,
+                    width: 1.2.w,
+                  ),
+                ),
+                focusedErrorBorder: border.copyWith(
+                  borderSide: BorderSide(
+                    color: colorScheme.error,
+                    width: 1.2.w,
+                  ),
+                ),
 
                 labelText: widget.labelText,
-                labelStyle:
-                    widget.hintStyle ??
-                    AppTextStyles.font14Regular.copyWith(
-                      color: LightAppColors.grey500,
-                    ),
+                labelStyle: AppTextStyles.font14Regular.copyWith(
+                  color: LightAppColors.grey500,
+                ),
                 suffixIcon: widget.isObscureText == true
                     ? IconButton(
                         icon: Icon(
@@ -170,11 +138,9 @@ class _AppInputState extends State<AppInput> {
                 fillColor: widget.backgroundColor ?? LightAppColors.background,
                 filled: true,
               ),
-              style:
-                  widget.inputTextStyle ??
-                  AppTextStyles.font16Regular.copyWith(
-                    color: colorScheme.secondary,
-                  ),
+              style: AppTextStyles.font16Regular.copyWith(
+                color: colorScheme.secondary,
+              ),
             ),
             if (state.hasError)
               Padding(
